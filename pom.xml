@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.learnovercoffee</groupId>
 	<artifactId>Login</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1</version>
 	<name>Login</name>
 	<description>Java project used which implements the login for the application.</description>
 
@@ -72,7 +72,6 @@
 		    <artifactId>unirest-java</artifactId>
 		    <version>1.4.9</version>
 		</dependency>
-				
 	</dependencies>
 
 	<build>
@@ -82,6 +81,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>LoginApp</finalName>
 	</build>
 
 </project>

@@ -1,0 +1,21 @@
+version: '3'
+
+services: 
+  docker-mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=login
+      - MYSQL_PASSWORD=root
+  loginapp:
+    image: loginapp
+    depends_on:
+      - docker-mysql
+    ports:
+      - 8080:8080
+    environment:
+      - DATABASE_HOST=docker-mysql
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=login  
+      - DATABASE_PORT=3306
