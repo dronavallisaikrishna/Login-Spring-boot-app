@@ -9,6 +9,7 @@ import java.util.List;
 public class AppProperties {
     private final Auth auth = new Auth();
     private final OAuth2 oauth2 = new OAuth2();
+    private final Sms sms = new Sms();
 
     public static class Auth {
         private String tokenSecret;
@@ -43,12 +44,42 @@ public class AppProperties {
             return this;
         }
     }
+    
+    public static final class Sms {
+    	private String apiKey;
+    	private String senderId;
+    	private String smsTemplate;
+		
+    	public String getApiKey() {
+			return apiKey;
+		}
+		public void setApiKey(String apiKey) {
+			this.apiKey = apiKey;
+		}
+		public String getSenderId() {
+			return senderId;
+		}
+		public void setSenderId(String senderId) {
+			this.senderId = senderId;
+		}
+		public String getSmsTemplate() {
+			return smsTemplate;
+		}
+		public void setSmsTemplate(String smsTemplate) {
+			this.smsTemplate = smsTemplate;
+		}
+    }
 
+    
     public Auth getAuth() {
         return auth;
     }
 
     public OAuth2 getOauth2() {
         return oauth2;
+    }
+    
+    public Sms getSms() {
+    	return sms;
     }
 }

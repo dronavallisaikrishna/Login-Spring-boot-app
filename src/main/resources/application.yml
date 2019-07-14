@@ -32,3 +32,7 @@ app:
       - http://localhost:3000/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
+  sms:
+    apiKey: KC5bi9XhFUf72NYyPeGdHr6SjR8VLutmpgvaOxkoc1Ew4nlI3TmWqfcv9YKARSQpwINaVgxj0MFusOiB
+    senderId: FSTSMS
+    smsTemplate: Your OTP for signing in is ABC

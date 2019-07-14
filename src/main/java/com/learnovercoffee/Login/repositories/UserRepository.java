@@ -11,6 +11,8 @@ import com.learnovercoffee.Login.models.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
+    
+    User findOneByMobileNumber(String mobileNumber);
 
     Boolean existsByEmail(String email);
 

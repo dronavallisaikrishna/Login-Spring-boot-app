@@ -50,4 +50,7 @@ public class User {
     private AuthProvider provider;
 
     private String providerId;
+    
+    @Column(length=6)
+    private String otp;
 }
