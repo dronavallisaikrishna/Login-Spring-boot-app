@@ -22,9 +22,20 @@ public class OTPGeneratorServiceImpl implements OTPGenerator {
 	private FastSmsProviderImplementation fastSmsProvider;
 	
 	@Override
-	public int generateRandomOTP(int n) {
-		int m = (int) Math.pow(10, n - 1);
-	    return m + new Random().nextInt(9 * m);
+	public String generateRandomOTP(int n) {
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                    + "abcdefghijklmnopqrstuvxyz";  
+        StringBuilder sb = new StringBuilder(n); 
+  
+        for (int i = 0; i < n; i++) {  
+            int index 
+                = (int)(AlphaNumericString.length() 
+                        * Math.random());  
+            sb.append(AlphaNumericString 
+                          .charAt(index)); 
+        }
+  
+        return sb.toString();
 	}
 
 	@Override

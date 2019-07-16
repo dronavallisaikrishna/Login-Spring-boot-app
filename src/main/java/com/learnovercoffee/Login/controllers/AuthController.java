@@ -6,6 +6,7 @@ import com.learnovercoffee.Login.dto.ApiResponse;
 import com.learnovercoffee.Login.dto.AuthResponse;
 import com.learnovercoffee.Login.dto.LoginRequest;
 import com.learnovercoffee.Login.dto.LoginWithOTPRequest;
+import com.learnovercoffee.Login.dto.LoginWithOTPValidatorRequest;
 import com.learnovercoffee.Login.dto.SignUpRequest;
 import com.learnovercoffee.Login.exceptionHandling.BadRequestException;
 import com.learnovercoffee.Login.models.AuthProvider;
@@ -94,7 +95,7 @@ public class AuthController {
     	if(findOneByMobileNumber==null) {
     		throw new BadRequestException("No user found with given mobile number");
     	}else {
-    		Integer otp= otpGenerationService.generateRandomOTP(6);
+    		String otp= otpGenerationService.generateRandomOTP(6);
     		boolean sendOTP = otpGenerationService.sendOTP(findOneByMobileNumber.getMobileNumber(),otp.toString());
     		if(sendOTP) {
     			findOneByMobileNumber.setOtp(otp.toString());
@@ -104,6 +105,26 @@ public class AuthController {
     		}else {
     			return ResponseEntity.ok()
                         .body(new ApiResponse(sendOTP, "OTP sending failed on mobile number"));
+    		}
+    	}
+    }
+    
+    @PostMapping("/validate-otp")
+    public ResponseEntity<?> validateAndsignInWithOTP(@Valid @RequestBody LoginWithOTPValidatorRequest loginWithOtpValidatorRequest){
+    	System.out.println("login request is:-"+loginWithOtpValidatorRequest.toString());
+    	User findOneByMobileNumber = userRepository.findOneByMobileNumber(loginWithOtpValidatorRequest.getMobileNumber());
+    	if(findOneByMobileNumber==null) {
+    		throw new BadRequestException("No user found with given mobile number");
+    	}else {
+    		System.out.println(findOneByMobileNumber.getOtp().equals(loginWithOtpValidatorRequest.getOtp()));
+    		if(findOneByMobileNumber.getOtp().equals(loginWithOtpValidatorRequest.getOtp())) {
+    			findOneByMobileNumber.setOtp(null);
+    			User updatedUser = userRepository.save(findOneByMobileNumber);
+    			String token= tokenProvider.createTokenForUser(updatedUser);
+    	        return ResponseEntity.ok(new AuthResponse(token));
+    		}
+    		else {
+    			throw new BadRequestException("Invalid OTP.");
     		}
     	}
     }
